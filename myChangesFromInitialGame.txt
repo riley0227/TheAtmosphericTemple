@@ -1,0 +1,9 @@
+Initially, I was going to have enemies attacking, but this game didnt seem like enemies attacking would work well/make it to difficult,  I thought falling axes would be better, as I can place spawnners in good locations, etc.
+
+Also, with loot, I made collecting it so you collect 3 items on the way to the temple, and the levels were already fairly difficult as is, so I didn't add the possible additions to the gameplay either.
+
+The levels are fun and difficut to compete where you can continue to get better and better scores, making you play more, and also, each leveltakes some time to complete initially and figure out the pattern you have to follow to complete the level.
+
+Overall, its very simmilar to what was specifed in the individual 2d. 
+
+With audio, I also just made it so that when you complete game, when you shoot, when you lose game, or click a button all has sound, also with jumping you hear when player jumps.  When hitting an axe, I didn't want to incorprate sound as it got really annoying and started to get to noisy with all the sound, so I left it with what is in the game right now and makes it a balanced sound for playing.  
