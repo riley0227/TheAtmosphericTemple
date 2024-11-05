@@ -6,7 +6,7 @@ public class AxeRotation : MonoBehaviour
 
     void Update()
     {
-        // Rotate around the Z-axis to spin like a wheel
+        // Rotate around the z-axis of axe
         transform.Rotate(0, 0, rotationSpeed * Time.deltaTime, Space.Self);
     }
 }

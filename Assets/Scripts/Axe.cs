@@ -3,7 +3,7 @@ using UnityEngine;
 public class Axe : MonoBehaviour
 {
     public float fallSpeed = 50f; // Speed of movement
-    public Vector3 gravityDirection = Vector3.down; // Default to downward movement
+    public Vector3 gravityDirection = Vector3.down; // down movement
 
     private void Update()
     {

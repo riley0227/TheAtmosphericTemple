@@ -2,61 +2,64 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float jumpHeight = 2f;
-    public float gravity = 9.81f;
-    public AudioSource jumpSound; // Reference to external jump sound AudioSource
-
-    private Animator animator;
-    private CharacterController characterController;
-    private Vector3 velocity;
+    public float moveSpeed = 5f;     // Character's movement speed
+    public float jumpHeight = 2f;    // Jump height
+    public float gravity = 9.81f;    // Gravity strength
+    public AudioSource jumpSound;    // Reference to an external AudioSource for the jump sound
+    private Animator animator;                   // Animator component for controlling animations
+    private CharacterController characterController; // CharacterController component for movement
+    private Vector3 velocity;                    // Velocity vector for vertical movement
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();             // Get Animator component
+        characterController = GetComponent<CharacterController>(); // Get CharacterController component
     }
 
+    // Called once per frame
     void Update()
     {
-        HandleMovement();
-        HandleJumpAndFall();
+        HandleMovement();        // Handle horizontal movement
+        HandleJumpAndFall();     // Handle jumping and falling
     }
 
     void HandleMovement()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        Vector3 move = new Vector3(moveX, 0, 0).normalized;
+        float moveX = Input.GetAxis("Horizontal");     // Get horizontal input (A/D or Left/Right keys)
+        Vector3 move = new Vector3(moveX, 0, 0).normalized; // Create movement vector on x-axis
 
-        characterController.Move(move * moveSpeed * Time.deltaTime);
+        characterController.Move(move * moveSpeed * Time.deltaTime); // Move character
 
-        // Set movement-related parameters
-        animator.SetFloat("Speed", Mathf.Abs(moveX));
-        animator.SetBool("IsMoving", moveX != 0);
+        // Update animator parameters based on movement
+        animator.SetFloat("Speed", Mathf.Abs(moveX));          // Set speed parameter for running animation
+        animator.SetBool("IsMoving", moveX != 0);              // Set movement flag if moving
 
-        // Rotate character based on direction
+        // Rotate character to face the direction of movement
         if (moveX > 0)
-            transform.rotation = Quaternion.Euler(0, 90, 0);  // Facing right
+            transform.rotation = Quaternion.Euler(0, 90, 0);   // Facing right
         else if (moveX < 0)
             transform.rotation = Quaternion.Euler(0, 270, 0);  // Facing left
     }
-
     void HandleJumpAndFall()
     {
+        // Check if character is on the ground
         if (characterController.isGrounded)
         {
-            if (velocity.y < 0) velocity.y = -2f;  // Keep character grounded
+            // Keep character grounded when not moving vertically
+            if (velocity.y < 0) velocity.y = -2f;
 
+            // Set grounded and falling animations
             animator.SetBool("IsGrounded", true);
             animator.SetBool("IsFalling", false);
 
             // Check for jump input
             if (Input.GetButtonDown("Jump"))
             {
+                // Calculate jump velocity
                 velocity.y = Mathf.Sqrt(jumpHeight * 2f * gravity);
-                animator.SetBool("IsJumping", true);
+                animator.SetBool("IsJumping", true);    // Set jumping animation
 
-                // Play jump sound on external AudioSource
+                // Play jump sound if an AudioSource is assigned
                 if (jumpSound != null)
                 {
                     jumpSound.Play();
@@ -65,18 +68,18 @@ public class CharacterMovement : MonoBehaviour
         }
         else
         {
-            animator.SetBool("IsGrounded", false);
+            animator.SetBool("IsGrounded", false);  // Not grounded
 
-            // Determine if falling or still jumping
+            // Determine if the character is falling or still in the jump
             if (velocity.y < 0)
             {
-                animator.SetBool("IsFalling", true);
-                animator.SetBool("IsJumping", false);
+                animator.SetBool("IsFalling", true); // Set falling animation
+                animator.SetBool("IsJumping", false); // Disable jumping animation
             }
         }
 
-        // Apply gravity
+        // Apply gravity over time for realistic falling
         velocity.y -= gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
+        characterController.Move(velocity * Time.deltaTime); // Move character based on updated velocity
     }
 }

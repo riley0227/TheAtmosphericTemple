@@ -2,33 +2,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public AudioSource collisionSoundSource; // Reference to the AudioSource on CollisionSoundManager
     public float destructionDelay = 0.05f; // Very small delay before destruction
     public float speed = 40f; // Speed of the bullet
     private float fixedZPosition = -40f; // Fixed Z position for the bullet
 
     private void Start()
     {
-        // Find and assign the separate sound-playing GameObject by name
-        if (collisionSoundSource == null)
-        {
-            GameObject soundManager = GameObject.Find("CollisionSoundManager");
-            if (soundManager != null)
-            {
-                collisionSoundSource = soundManager.GetComponent<AudioSource>();
-            }
-        }
-
-        // TEMP: Play sound on start to confirm audio works
-        if (collisionSoundSource != null)
-        {
-            collisionSoundSource.Play();
-            Debug.Log("Sound played at bullet spawn.");
-        }
-        else
-        {
-            Debug.LogError("CollisionSoundManager or AudioSource not found.");
-        }
 
         // Set bullet rotation to face the direction of the mouse click
         RotateTowardsMouse();
@@ -67,7 +46,6 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Axe")) // If it hits an axe
         {
-            PlayCollisionSound(); // Trigger the sound on the separate object
 
             // Delay the destruction of both bullet and axe to ensure sound plays
             Destroy(other.gameObject, destructionDelay); 
@@ -76,19 +54,6 @@ public class Bullet : MonoBehaviour
         else if (other.CompareTag("Platform")) // If it hits a platform
         {
             Destroy(gameObject); // Only destroy the bullet
-        }
-    }
-
-    private void PlayCollisionSound()
-    {
-        // Play the collision sound from the separate AudioSource
-        if (collisionSoundSource != null && !collisionSoundSource.isPlaying)
-        {
-            collisionSoundSource.Play(); // Play the sound fully even after bullet/axe destruction
-        }
-        else
-        {
-            Debug.LogWarning("Collision sound AudioSource not found or already playing.");
         }
     }
 

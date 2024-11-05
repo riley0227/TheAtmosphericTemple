@@ -25,6 +25,7 @@ public class ItemCollector : MonoBehaviour
 
     public static void ResetItemCount()
     {
+        // resets items to 0
         itemsCollected = 0;
     }
 }

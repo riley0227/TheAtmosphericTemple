@@ -47,23 +47,15 @@ public class PlayerMovement : MonoBehaviour
         // Move the character
         characterController.Move((moveDirection + velocity) * Time.deltaTime);
     }
-
-    // **NEW: Detect collisions with triggers, such as the temple object**
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // Debug.Log("Player hit: " + hit.gameObject.name); // Log the object hit
 
         // Search for the EndGameTrigger component in the parent hierarchy
         EndGameTrigger endGameTrigger = hit.gameObject.GetComponentInParent<EndGameTrigger>();
 
         if (endGameTrigger != null)
         {
-            // Debug.Log("End game trigger found! Activating end game screen.");
             endGameTrigger.TriggerEndGame(); // Call the public method
-        }
-        else
-        {
-            // Debug.LogError("EndGameTrigger component not found in the temple hierarchy!");
         }
     }
 }

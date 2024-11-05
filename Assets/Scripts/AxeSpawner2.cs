@@ -12,14 +12,11 @@ public class AxeSpawner2 : MonoBehaviour
 
     void SpawnAxe()
     {
+        // gets random axe
         int randomIndex = Random.Range(0, axePrefabs.Length);
         GameObject axe = Instantiate(axePrefabs[randomIndex], transform.position, Quaternion.identity);
 
         // Set gravity direction left for Axe spawned from AxeSpawner2
         Axe axeScript = axe.GetComponent<Axe>();
-        if (axeScript != null)
-        {
-            axeScript.gravityDirection = Vector3.left; // Move left
-        }
     }
 }

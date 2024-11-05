@@ -3,7 +3,7 @@ using UnityEngine;
 public class TintObjectYellow : MonoBehaviour
 {
     public Color tintColor = Color.yellow; // Tint color
-    [Range(0, 1)] public float tintStrength = 0.25f; // 0 is no tint, 1 is full tint
+    [Range(0, 1)] public float tintStrength = 0.25f; // tint strength
 
     private Renderer objectRenderer;
     private Color originalColor;

@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class TintObjectBrown : MonoBehaviour
 {
+    // bleow is to tint the dispaearing platforms brown
     public Color tintColor = new Color(0.545f, 0.271f, 0.075f);// Tint color
-    [Range(0, 1)] public float tintStrength = 0.25f; // 0 is no tint, 1 is full tint
+    [Range(0, 1)] public float tintStrength = 0.25f; // tint strength
 
     private Renderer objectRenderer;
     private Color originalColor;
@@ -32,9 +33,10 @@ public class TintObjectBrown : MonoBehaviour
         }
     }
 
+    // set and call apply tint
     public void SetTintStrength(float newStrength)
     {
-        tintStrength = Mathf.Clamp01(newStrength); // Clamp to keep between 0 and 1
+        tintStrength = Mathf.Clamp01(newStrength); 
         ApplyTint();
     }
 }
